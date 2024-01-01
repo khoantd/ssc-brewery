@@ -23,6 +23,13 @@ public class BeerControllerIT extends BaseIT{
                 .andExpect(model().attributeExists("beer"));
     }
 
+
+    @Test
+    void findBeersById() throws Exception{
+        mockMvc.perform(get("/api/v1/beer/c863df25-b516-4de8-8b73-818bae7becc7"))
+                .andExpect(status().isOk());
+    }
+
     @Test
     void findBeersWithHttpBasic() throws Exception{
         mockMvc.perform(get("/beers/find").with(httpBasic("spring", "guru")))
