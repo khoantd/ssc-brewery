@@ -12,24 +12,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by jt on 6/12/20.
  */
 @WebMvcTest
-public class BeerControllerIT extends BaseIT{
+public class BeerRestControllerIT extends BaseIT{
 
-    @WithMockUser("spring")
     @Test
     void findBeers() throws Exception{
-        mockMvc.perform(get("/beers/find"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("beers/findBeers"))
-                .andExpect(model().attributeExists("beer"));
+        mockMvc.perform(get("/api/v1/beer/"))
+                .andExpect(status().isOk());
     }
 
 
     @Test
-    void findBeersWithHttpBasic() throws Exception{
-        mockMvc.perform(get("/beers/find").with(httpBasic("spring", "guru")))
-                .andExpect(status().isOk())
-                .andExpect(view().name("beers/findBeers"))
-                .andExpect(model().attributeExists("beer"));
+    void findBeersById() throws Exception{
+        mockMvc.perform(get("/api/v1/beer/c863df25-b516-4de8-8b73-818bae7becc7"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void findBeersByUpc() throws Exception{
+        mockMvc.perform(get("/api/v1/beerUpc/0631234200036")).andExpect(status().isOk());
     }
 
 
